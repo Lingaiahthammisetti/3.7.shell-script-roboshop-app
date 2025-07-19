@@ -44,3 +44,9 @@ VALIDATE $? "Remote server access"
 
 systemctl restart mongod &>> $LOGFILE
 VALIDATE $? "Restarted MongoDB"
+
+systemctl status mongod &>> $LOGFILE
+VALIDATE $? "mongod Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "mongod Port"

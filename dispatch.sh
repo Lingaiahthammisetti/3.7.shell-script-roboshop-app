@@ -75,3 +75,6 @@ VALIDATE $? "Enabling dispatch"
 
 systemctl start dispatch  &>> $LOGFILE
 VALIDATE $? "Starting dispatch"
+
+systemctl status dispatch &>> $LOGFILE
+VALIDATE $? "dispatch Status"

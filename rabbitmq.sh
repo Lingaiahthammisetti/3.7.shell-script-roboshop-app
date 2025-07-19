@@ -52,3 +52,9 @@ then
 else
     echo -e "USER already exists... $Y SKIPPING $N"
 fi
+
+systemctl status rabbitmq-server &>> $LOGFILE
+VALIDATE $? "rabbitmq-server Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "rabbitmq-server Port"

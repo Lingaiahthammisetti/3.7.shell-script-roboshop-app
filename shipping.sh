@@ -92,5 +92,11 @@ else
     echo -e "Schema already exists... $Y SKIPPING $N"
 fi
 
-systemctl restart shipping
+systemctl restart shipping &>> $LOGFILE
 VALIDATE $? "Restarted Shipping"
+
+systemctl status shipping &>> $LOGFILE
+VALIDATE $? "Shipping Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "Shipping Port"

@@ -91,3 +91,9 @@ then
 else
     echo -e "schema already exists... $Y SKIPPING $N"
 fi
+
+systemctl status user &>> $LOGFILE
+VALIDATE $? "User Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "User Port"

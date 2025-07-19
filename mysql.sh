@@ -38,3 +38,9 @@ VALIDATE $? "Starting MySQL Server"
 
 mysql_secure_installation --set-root-pass RoboShop@1 &>>$LOGFILE
 VALIDATE $? "Setting root password"
+
+systemctl status mysqld &>> $LOGFILE
+VALIDATE $? "mysqld Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "mysqld Port"

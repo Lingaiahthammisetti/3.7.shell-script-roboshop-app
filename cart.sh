@@ -74,3 +74,9 @@ VALIDATE $? "Enable cart"
 
 systemctl start cart &>> $LOGFILE
 VALIDATE $? "Start cart"
+
+systemctl status cart &>> $LOGFILE
+VALIDATE $? "cart Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "cart Port"

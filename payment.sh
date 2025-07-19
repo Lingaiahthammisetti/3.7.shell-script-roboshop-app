@@ -68,3 +68,9 @@ VALIDATE $? "Enable payment"
 
 systemctl start payment &>> $LOGFILE
 VALIDATE $? "Start payment"
+
+systemctl status payment &>> $LOGFILE
+VALIDATE $? "payment Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "payment Port"

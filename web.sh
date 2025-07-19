@@ -53,3 +53,9 @@ VALIDATE $? "copying roboshop conf"
 
 systemctl restart nginx &>>$LOGFILE
 VALIDATE $? "Restarting Nginx"
+
+systemctl status nginx &>> $LOGFILE
+VALIDATE $? "web-nginx Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "nginx Port"

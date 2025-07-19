@@ -38,3 +38,9 @@ VALIDATE $? "Enabling Redis"
  
 systemctl start redis &>>$LOGFILE
 VALIDATE $? "Starting Redis"
+
+systemctl status redis &>> $LOGFILE
+VALIDATE $? "Redis Status"
+
+netstat -lntp &>> $LOGFILE
+VALIDATE $? "Redis Port"
