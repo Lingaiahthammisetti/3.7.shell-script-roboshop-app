@@ -19,12 +19,16 @@ VALIDATE(){
     fi
 }
 
-if [ $USERID -ne 0 ]
-then
-    echo "Please run this script with root access."
-    exit 1 # manually exit if error comes.
+if [ $USERID -ne 0 ]; then
+    echo -e "$R Please run this script with root access. $N"
+    exit 1
 else
-    echo "You are super user."
+    echo -e "$G You are super user. $N"
+fi
+
+if [ ! -f mongo.repo ]; then
+    echo -e "$R mongo.repo file not found in the current directory. $N"
+    exit 1
 fi
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
@@ -34,19 +38,19 @@ dnf install mongodb-org -y &>> $LOGFILE
 VALIDATE $? "Installing MongoDB"
 
 systemctl enable mongod &>> $LOGFILE
-VALIDATE $? "Enabling MonogoDB"
+VALIDATE $? "Enabling MongoDB"
 
 systemctl start mongod &>> $LOGFILE
 VALIDATE $? "Starting MongoDB" 
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
-VALIDATE $? "Remote server access"
+VALIDATE $? "Configuring remote server"
 
 systemctl restart mongod &>> $LOGFILE
 VALIDATE $? "Restarted MongoDB"
 
 systemctl status mongod &>> $LOGFILE
-VALIDATE $? "mongod Status"
+VALIDATE $? "Checking MongoDB status"
 
 netstat -lntp &>> $LOGFILE
 VALIDATE $? "mongod Port"
