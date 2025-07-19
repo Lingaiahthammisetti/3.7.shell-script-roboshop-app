@@ -52,5 +52,6 @@ VALIDATE $? "Restarted MongoDB"
 systemctl status mongod &>> $LOGFILE
 VALIDATE $? "Checking MongoDB status"
 
-netstat -lntp &>> $LOGFILE
-VALIDATE $? "mongod Port"
+netstat -lntp | grep mongod &>> $LOGFILE
+ss -lntp | grep mongod &>> $LOGFILE
+VALIDATE $? "checking mongod Port open or not"
